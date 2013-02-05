@@ -1,0 +1,24 @@
+<table>
+    <colgroup>
+        <col witdh="400">
+        <col width="300">
+    </colgroup>
+    <thead>
+    </thead>
+    <tbody>
+        <?php if(!count($this->trainStations)): ?>
+            <tr>
+                <td colspan="2">
+                    <?php echo $this->translate('Currently the system does not contain any train stations'); ?>
+                </td>
+            </tr>
+        <?php endif; ?>
+        <?php if(count($this->trainStations)): foreach ($this->trainStations as $trainStation): ?>
+            <tr id="trainStation_<?php echo $trainStation->getId(); ?>">
+                <td><?php echo $trainStation->getName(); ?></td>
+                <td>
+                </td>
+            </tr>
+        <?php endforeach; endif; ?>
+    </tbody>
+</table>

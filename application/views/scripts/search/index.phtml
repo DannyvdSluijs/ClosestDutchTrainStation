@@ -1,0 +1,31 @@
+<table>
+    <colgroup>
+        <col witdh="400">
+        <col width="300">
+    </colgroup>
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Search:</td>
+            <td colspan="2"><form method="post"><input type="text" name="postalCode"><button type="submit" name="submit" value="search">Search</button></form></td>
+        </tr>
+        <?php if(isset($this->data)): $i = 1; ?>
+            <?php foreach($this->data as $row): ?>
+                <tr>
+                    <td><?php echo $i; ?></td>
+                    <td>
+                       <?php echo $row->name; ?> 
+                    </td>
+                    <td>
+                       <?php echo round($row->distance, 3); ?> Km.
+                    </td>
+                </tr>
+            <?php $i++; endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="2">No search was executed</td>
+                </tr>
+            <?php endif; ?>
+    </tbody>
+</table>

@@ -1,4 +1,3 @@
-ClosestDutchTrainStation
-========================
+ClosestDutchTrainStation:
 
-Locate the closest train station given the postal code. 
+Project for Regiecentrale, Houten Netherlands. By Danny van der Sluijs;

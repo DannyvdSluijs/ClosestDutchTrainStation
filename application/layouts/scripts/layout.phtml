@@ -1,0 +1,93 @@
+<?php
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+    $this->headMeta()->appendHttpEquiv('Pragma', 'no-cache');
+    $this->headMeta()->appendHttpEquiv('Cache-Control', 'no-cache');
+    $this->headMeta()->appendHttpEquiv('Pragma-Directive', 'no-cache');
+    $this->headMeta()->appendHttpEquiv('Cache-Directive', 'no-cache');
+    $this->headMeta()->appendHttpEquiv('robots', 'noindex,follow');
+    $this->headTitle()->setSeparator(' - ');
+    $this->headTitle('Closest train station');
+    echo $this->doctype(); 
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <?php 
+            echo $this->headMeta();
+            echo $this->headTitle();
+            $this->headLink()->prependStylesheet($this->baseUrl().'/css/blueprint/screen.css');
+            $this->headLink()->prependStylesheet($this->baseUrl().'/css/blueprint/plugins/fancy-type/screen.css');
+            $this->headLink()->appendStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/smoothness/jquery-ui.css');
+            $this->headLink()->appendStylesheet($this->baseUrl().'/css/ui.hoveraccordion.css');
+            echo $this->headLink();
+            $this->headScript()->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+            $this->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js');
+            $this->headScript()->appendFile($this->baseUrl().'/js/jquery-blockui/jquery.blockUI.js');
+            $this->headScript()->appendFile($this->baseUrl().'/js/jquery-hoveraccordion/jquery.hoveraccordion.min.js');
+            echo $this->headScript(); 
+        ?>
+
+        <script type="text/javascript">
+            $.blockUI({ defaults: { css: { 
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            } } });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="alt" id="logo">Closest Train Station</h1>
+            <script type="text/javascript">
+                $('h1#logo').click(function() { window.location = '<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>' }); 
+            </script>
+            <hr>
+            <h2>by Danny van der Sluijs</h2>
+            <hr>
+            <div class="span-7 colborder">
+                <ul id="menu">
+                    <li class="firstitem">
+                        <a class="header closed" href="#"><?php echo $this->translate('Search'); ?></a>
+                        <ul>
+                            <li>
+                                <a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>" id="searchClosestTrainStation" >
+                                    <?php echo $this->translate('Closest train station'); ?>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="lastitem">
+                        <a class="header closed" href="#"><?php echo $this->translate('Train stations'); ?></a>
+                        <ul>
+                            <li>
+                                <a href="<?php echo $this->url(array('controller' => 'trainstation', 'action' => 'index')); ?>" id="trainStationView" >
+                                    <?php echo $this->translate('View train stations'); ?>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="span-15 last" id="main-content">
+                <?php echo $this->layout()->content; ?>
+            </div>
+        </div>
+        <div id="dialog" title="Dialog">
+        </div>
+    </body>
+    <?php
+        $menuItems = array(
+            1 => 'index',
+            'trainstation',
+        );
+        $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+        if (($item = array_search($controllerName, $menuItems)) === false) {
+            $item = 1;
+        }
+    ?>
+    <script type="text/javascript">$(window).load(function () { $('input[type=submit]').button(); });</script>
+    <script type="text/javascript">$(document).ready(function(){ $('#menu').hoverAccordion({ keepHeight: false, activateItem: <?php echo $item; ?>, speed: 'fast' }); }); </script>
+</html>
